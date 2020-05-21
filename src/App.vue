@@ -12,14 +12,25 @@
     </v-app-bar>
 
     <v-content>
-      <v-container fluid>
-        <v-layout>
+      <v-container>
+        <v-row>
+          <v-textarea/>
+        </v-row>
+        <v-row/>
+        <v-row>
+          <v-col>ヘッダ</v-col>
+          <v-col>データ</v-col>
+          <v-col>トレーラ</v-col>
+          <v-col>エンド</v-col>
+        </v-row>
+        <v-row/>
+        <v-row justify="center">
           <v-data-table
             :headers="headers"
             :items="desserts"
             :items-per-page="5"
           ></v-data-table>
-        </v-layout>
+        </v-row>
       </v-container>
     </v-content>
   </v-app>
