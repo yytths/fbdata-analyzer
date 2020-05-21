@@ -1,0 +1,40 @@
+<template>
+  <v-data-table
+    :headers="headers"
+    :items="records"
+    :items-per-page="5"
+  ></v-data-table>
+</template>
+
+<script>
+export default {
+  name: 'AppTrailerRecordDataTable',
+
+  props: {
+    items: {
+      default() { return []; },
+      type: Array,
+    },
+  },
+
+  computed: {
+    records() {
+      return this.items.map((record) => ({
+        dataPartition: record.substr(0, 1),
+        totalNumber: record.substr(1, 6),
+        totalFee: record.substr(7, 12),
+        dummy: record.substr(19, 101),
+      }));
+    },
+  },
+
+  data: () => ({
+    headers: [
+      { text: 'データ区分', value: 'dataPartition', sortable: false },
+      { text: '合計件数', value: 'totalNumber', sortable: false },
+      { text: '合計金額', value: 'totalFee', sortable: false },
+      { text: 'ダミー', value: 'dummy', sortable: false },
+    ],
+  }),
+};
+</script>

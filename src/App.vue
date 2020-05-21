@@ -28,7 +28,8 @@
                 v-if="rt.value===RECORD_TYPE.HEADER.value" :items="headerRecords"/>
               <app-data-record-data-table
                 v-if="rt.value===RECORD_TYPE.DATA.value" :items="dataRecords"/>
-              <app-header-record-data-table v-if="rt.value===RECORD_TYPE.TRAILER.value"/>
+              <app-trailer-record-data-table
+                v-if="rt.value===RECORD_TYPE.TRAILER.value" :items="trailerRecords"/>
               <app-header-record-data-table v-if="rt.value===RECORD_TYPE.END.value"/>
               <app-header-record-data-table v-if="rt.value===RECORD_TYPE.UNKNOWN.value"/>
             </v-tab-item>
@@ -42,6 +43,7 @@
 <script>
 import appHeaderRecordDataTable from './components/AppHeaderRecordDataTable.vue';
 import appDataRecordDataTable from './components/AppDataRecordDataTable.vue';
+import appTrailerRecordDataTable from './components/AppTrailerRecordDataTable.vue';
 import { RECORD_TYPE_OBJ } from './util/code';
 
 export default {
@@ -50,6 +52,7 @@ export default {
   components: {
     appHeaderRecordDataTable,
     appDataRecordDataTable,
+    appTrailerRecordDataTable,
   },
 
   data: () => ({
@@ -68,6 +71,10 @@ export default {
     dataRecords() {
       return this.inputFbData.split('\n').filter(((record) => record.startsWith('2')));
     },
+    trailerRecords() {
+      return this.inputFbData.split('\n').filter(((record) => record.startsWith('8')));
+    },
+
   },
 
   methods: {
@@ -77,6 +84,8 @@ export default {
           || 'ヘッダレコードが120文字ではありません。',
         this.dataRecords.every((record) => record.length === 0 || record.length === 120)
           || 'データレコードが120文字ではありません。',
+        this.trailerRecords.every((record) => record.length === 0 || record.length === 120)
+          || 'トレーラレコードが120文字ではありません。',
       ];
     },
   },
