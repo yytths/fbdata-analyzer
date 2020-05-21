@@ -18,37 +18,19 @@
         </v-row>
         <v-row/>
         <v-row>
-          <v-col @click="clickRecordType(RECORD_TYPE.HEADER.VALUE)" style="cursor: pointer;">
-            {{ RECORD_TYPE.HEADER.LABEL }}
-          </v-col>
-          <v-col @click="clickRecordType(RECORD_TYPE.DATA.VALUE)" style="cursor: pointer;">
-            {{ RECORD_TYPE.DATA.LABEL }}
-          </v-col>
-          <v-col @click="clickRecordType(RECORD_TYPE.TRAILER.VALUE)" style="cursor: pointer;">
-            {{ RECORD_TYPE.TRAILER.LABEL }}
-          </v-col>
-          <v-col @click="clickRecordType(RECORD_TYPE.END.VALUE)" style="cursor: pointer;">
-            {{ RECORD_TYPE.END.LABEL }}
-          </v-col>
-          <v-col @click="clickRecordType(RECORD_TYPE.UNKNOWN.VALUE)" style="cursor: pointer;">
-            {{ RECORD_TYPE.UNKNOWN.LABEL }}
-          </v-col>
-        </v-row>
-        <v-row/>
-        <v-row justify="center">
-          <app-header-record-data-table
-            v-if="myRecordType===RECORD_TYPE.HEADER.VALUE"/>
-          <app-header-record-data-table
-            v-else-if="myRecordType===RECORD_TYPE.DATA.VALUE"
-          />
-          <app-header-record-data-table
-           v-else-if="myRecordType===RECORD_TYPE.TRAILER.VALUE"
-          />
-          <app-header-record-data-table
-            v-else-if="myRecordType===RECORD_TYPE.END.VALUE"/>
-          <span
-            v-else
-          />
+          <v-tabs grow>
+            <v-tabs-slider></v-tabs-slider>
+            <v-tab v-for="rt in Object.values(RECORD_TYPE)" :key="rt.label">
+              {{ rt.label }}
+            </v-tab>
+            <v-tab-item v-for="rt in Object.values(RECORD_TYPE)" :key="rt.label">
+              <app-header-record-data-table v-if="rt.value===RECORD_TYPE.HEADER.value"/>
+              <app-header-record-data-table v-if="rt.value===RECORD_TYPE.DATA.value"/>
+              <app-header-record-data-table v-if="rt.value===RECORD_TYPE.TRAILER.value"/>
+              <app-header-record-data-table v-if="rt.value===RECORD_TYPE.END.value"/>
+              <app-header-record-data-table v-if="rt.value===RECORD_TYPE.UNKNOWN.value"/>
+            </v-tab-item>
+          </v-tabs>
         </v-row>
       </v-container>
     </v-content>
@@ -77,9 +59,6 @@ export default {
   },
 
   methods: {
-    clickRecordType(type) {
-      this.myRecordType = type;
-    },
   },
 };
 </script>

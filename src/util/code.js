@@ -1,19 +1,19 @@
 export const RECORD_TYPE_OBJ = {
   HEADER: {
-    label: 'ヘッダ',
+    label: 'ヘッダレコード',
     value: 'header',
   },
   DATA: {
-    label: 'データ',
+    label: 'データレコード',
     value: 'data',
   },
   TRAILER: {
-    label: 'トレーラ',
+    label: 'トレーラレコード',
     value: 'trailer',
   },
   END: {
-    label: 'end',
-    value: 'エンド',
+    label: 'エンドレコード',
+    value: 'end',
   },
   UNKNOWN: {
     label: '不明',
