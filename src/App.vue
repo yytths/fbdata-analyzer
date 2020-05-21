@@ -25,9 +25,9 @@
             </v-tab>
             <v-tab-item v-for="rt in Object.values(RECORD_TYPE)" :key="rt.label">
               <app-header-record-data-table
-                v-if="rt.value===RECORD_TYPE.HEADER.value" :items="headerRecords"
-              />
-              <app-header-record-data-table v-if="rt.value===RECORD_TYPE.DATA.value"/>
+                v-if="rt.value===RECORD_TYPE.HEADER.value" :items="headerRecords"/>
+              <app-data-record-data-table
+                v-if="rt.value===RECORD_TYPE.DATA.value" :items="dataRecords"/>
               <app-header-record-data-table v-if="rt.value===RECORD_TYPE.TRAILER.value"/>
               <app-header-record-data-table v-if="rt.value===RECORD_TYPE.END.value"/>
               <app-header-record-data-table v-if="rt.value===RECORD_TYPE.UNKNOWN.value"/>
@@ -41,6 +41,7 @@
 
 <script>
 import appHeaderRecordDataTable from './components/AppHeaderRecordDataTable.vue';
+import appDataRecordDataTable from './components/AppDataRecordDataTable.vue';
 import { RECORD_TYPE_OBJ } from './util/code';
 
 export default {
@@ -48,6 +49,7 @@ export default {
 
   components: {
     appHeaderRecordDataTable,
+    appDataRecordDataTable,
   },
 
   data: () => ({
@@ -63,6 +65,9 @@ export default {
     headerRecords() {
       return this.inputFbData.split('\n').filter(((record) => record.startsWith('1')));
     },
+    dataRecords() {
+      return this.inputFbData.split('\n').filter(((record) => record.startsWith('2')));
+    },
   },
 
   methods: {
@@ -70,6 +75,8 @@ export default {
       return [
         this.headerRecords.every((record) => record.length === 0 || record.length === 120)
           || 'ヘッダレコードが120文字ではありません。',
+        this.dataRecords.every((record) => record.length === 0 || record.length === 120)
+          || 'データレコードが120文字ではありません。',
       ];
     },
   },
