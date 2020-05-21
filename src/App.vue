@@ -14,7 +14,7 @@
     <v-content>
       <v-container>
         <v-row>
-          <v-textarea/>
+          <v-textarea v-model="inputFbData"/>
         </v-row>
         <v-row/>
         <v-row>
@@ -24,7 +24,9 @@
               {{ rt.label }}
             </v-tab>
             <v-tab-item v-for="rt in Object.values(RECORD_TYPE)" :key="rt.label">
-              <app-header-record-data-table v-if="rt.value===RECORD_TYPE.HEADER.value"/>
+              <app-header-record-data-table
+                v-if="rt.value===RECORD_TYPE.HEADER.value" :items="headerRecords"
+              />
               <app-header-record-data-table v-if="rt.value===RECORD_TYPE.DATA.value"/>
               <app-header-record-data-table v-if="rt.value===RECORD_TYPE.TRAILER.value"/>
               <app-header-record-data-table v-if="rt.value===RECORD_TYPE.END.value"/>
@@ -50,11 +52,16 @@ export default {
 
   data: () => ({
     myRecordType: '',
+    inputFbData: '',
   }),
 
   computed: {
     RECORD_TYPE() {
       return RECORD_TYPE_OBJ;
+    },
+
+    headerRecords() {
+      return this.inputFbData.split('\n').filter(((record) => record.startsWith('1')));
     },
   },
 
