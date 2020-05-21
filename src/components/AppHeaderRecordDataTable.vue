@@ -12,17 +12,19 @@ export default {
 
   data: () => ({
     headers: [
-      {
-        text: 'Dessert (100g serving)',
-        align: 'start',
-        sortable: false,
-        value: 'name',
-      },
-      { text: 'Calories', value: 'calories' },
-      { text: 'Fat (g)', value: 'fat' },
-      { text: 'Carbs (g)', value: 'carbs' },
-      { text: 'Protein (g)', value: 'protein' },
-      { text: 'Iron (%)', value: 'iron' },
+      { text: 'データ区分', value: 'name', sortable: false },
+      { text: '種別コード', value: 'calories', sortable: false },
+      { text: 'コード区分', value: 'fat', sortable: false },
+      { text: '委託者コード', value: 'carbs', sortable: false },
+      { text: '委託者名', value: 'protein', sortable: false },
+      { text: '取組日 ', value: 'iron', sortable: false },
+      { text: '仕向金融機関番号', value: 'fat', sortable: false },
+      { text: '仕向金融機関名', value: 'carbs', sortable: false },
+      { text: '仕向支店番号', value: 'protein', sortable: false },
+      { text: '仕向支店名  ', value: 'iron', sortable: false },
+      { text: '預金種目(依頼人) ', value: 'fat', sortable: false },
+      { text: '口座番号(依頼人)', value: 'carbs', sortable: false },
+      { text: 'ダミー', value: 'protein', sortable: false },
     ],
     desserts: [
       {
