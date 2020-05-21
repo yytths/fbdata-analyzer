@@ -18,24 +18,34 @@
         </v-row>
         <v-row/>
         <v-row>
-          <v-col @click="clickRecordType('header')" style="cursor: pointer;">ヘッダ</v-col>
-          <v-col @click="clickRecordType('data')" style="cursor: pointer;">データ</v-col>
-          <v-col @click="clickRecordType('trailer')" style="cursor: pointer;">トレーラ</v-col>
-          <v-col @click="clickRecordType('end')" style="cursor: pointer;">エンド</v-col>
-          <v-col @click="clickRecordType('unknown')" style="cursor: pointer;">不明</v-col>
+          <v-col @click="clickRecordType(RECORD_TYPE.HEADER.VALUE)" style="cursor: pointer;">
+            {{ RECORD_TYPE.HEADER.LABEL }}
+          </v-col>
+          <v-col @click="clickRecordType(RECORD_TYPE.DATA.VALUE)" style="cursor: pointer;">
+            {{ RECORD_TYPE.DATA.LABEL }}
+          </v-col>
+          <v-col @click="clickRecordType(RECORD_TYPE.TRAILER.VALUE)" style="cursor: pointer;">
+            {{ RECORD_TYPE.TRAILER.LABEL }}
+          </v-col>
+          <v-col @click="clickRecordType(RECORD_TYPE.END.VALUE)" style="cursor: pointer;">
+            {{ RECORD_TYPE.END.LABEL }}
+          </v-col>
+          <v-col @click="clickRecordType(RECORD_TYPE.UNKNOWN.VALUE)" style="cursor: pointer;">
+            {{ RECORD_TYPE.UNKNOWN.LABEL }}
+          </v-col>
         </v-row>
         <v-row/>
         <v-row justify="center">
           <app-header-record-data-table
-            v-if="recordType==='header'"/>
+            v-if="myRecordType===RECORD_TYPE.HEADER.VALUE"/>
           <app-header-record-data-table
-            v-else-if="recordType==='data'"
+            v-else-if="myRecordType===RECORD_TYPE.DATA.VALUE"
           />
           <app-header-record-data-table
-           v-else-if="recordType==='trailer'"
+           v-else-if="myRecordType===RECORD_TYPE.TRAILER.VALUE"
           />
           <app-header-record-data-table
-            v-else-if="recordType==='end'"/>
+            v-else-if="myRecordType===RECORD_TYPE.END.VALUE"/>
           <span
             v-else
           />
@@ -47,6 +57,7 @@
 
 <script>
 import appHeaderRecordDataTable from './components/AppHeaderRecordDataTable.vue';
+import { RECORD_TYPE_OBJ } from './util/code';
 
 export default {
   name: 'App',
@@ -56,12 +67,18 @@ export default {
   },
 
   data: () => ({
-    recordType: '',
+    myRecordType: '',
   }),
+
+  computed: {
+    RECORD_TYPE() {
+      return RECORD_TYPE_OBJ;
+    },
+  },
 
   methods: {
     clickRecordType(type) {
-      this.recordType = type;
+      this.myRecordType = type;
     },
   },
 };
