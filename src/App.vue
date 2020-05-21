@@ -14,7 +14,7 @@
     <v-content>
       <v-container>
         <v-row>
-          <v-textarea v-model="inputFbData"/>
+          <v-textarea :rules="checkCounterPerRow()" v-model="inputFbData"/>
         </v-row>
         <v-row/>
         <v-row>
@@ -66,6 +66,12 @@ export default {
   },
 
   methods: {
+    checkCounterPerRow() {
+      return [
+        this.headerRecords.every((record) => record.length === 0 || record.length === 120)
+          || 'ヘッダレコードが120文字ではありません。',
+      ];
+    },
   },
 };
 </script>
