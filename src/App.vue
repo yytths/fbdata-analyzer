@@ -14,7 +14,7 @@
     <v-content>
       <v-container>
         <v-row>
-          <v-textarea :rules="checkCounterPerRow()" v-model="inputFbData"/>
+          <v-textarea :rules="validateCounterPerRow()" v-model="inputFbData"/>
         </v-row>
         <v-row/>
         <v-row>
@@ -48,7 +48,10 @@ import appDataRecordDataTable from './components/AppDataRecordDataTable.vue';
 import appTrailerRecordDataTable from './components/AppTrailerRecordDataTable.vue';
 import appEndRecordDataTable from './components/AppEndRecordDataTable.vue';
 import appUnknownRecordDataTable from './components/AppUnknownRecordDataTable.vue';
-import { RECORD_TYPE_OBJ } from './util/code';
+import {
+  RECORD_TYPE_OBJ,
+  MAX_LENGTH_PER_ROW,
+} from './util/code';
 
 export default {
   name: 'App',
@@ -72,41 +75,44 @@ export default {
     },
 
     headerRecords() {
-      return this.inputFbData.split('\n').filter(((record) => record.startsWith('1')));
+      return this.inputFbData.split('\n').filter(((record) => record.startsWith(this.RECORD_TYPE.HEADER.code)));
     },
     dataRecords() {
-      return this.inputFbData.split('\n').filter(((record) => record.startsWith('2')));
+      return this.inputFbData.split('\n').filter(((record) => record.startsWith(this.RECORD_TYPE.DATA.code)));
     },
     trailerRecords() {
-      return this.inputFbData.split('\n').filter(((record) => record.startsWith('8')));
+      return this.inputFbData.split('\n').filter(((record) => record.startsWith(this.RECORD_TYPE.TRAILER.code)));
     },
     endRecords() {
-      return this.inputFbData.split('\n').filter(((record) => record.startsWith('9')));
+      return this.inputFbData.split('\n').filter(((record) => record.startsWith(this.RECORD_TYPE.END.code)));
     },
     unknownRecords() {
-      return this.inputFbData.split('\n').filter(((record) => !(record.startsWith('1')
-        || record.startsWith('2')
-        || record.startsWith('8')
-        || record.startsWith('9')
+      return this.inputFbData.split('\n').filter(((record) => !(record.startsWith(this.RECORD_TYPE.HEADER.code)
+        || record.startsWith(this.RECORD_TYPE.DATA.code)
+        || record.startsWith(this.RECORD_TYPE.TRAILER.code)
+        || record.startsWith(this.RECORD_TYPE.END.code)
         || record.length === 0
       )));
     },
   },
 
   methods: {
-    checkCounterPerRow() {
+    validateCounterPerRow() {
       return [
-        this.headerRecords.every((record) => record.length === 0 || record.length === 120)
-          || 'ヘッダレコードが120文字ではありません。',
-        this.dataRecords.every((record) => record.length === 0 || record.length === 120)
-          || 'データレコードが120文字ではありません。',
-        this.trailerRecords.every((record) => record.length === 0 || record.length === 120)
-          || 'トレーラレコードが120文字ではありません。',
-        this.endRecords.every((record) => record.length === 0 || record.length === 120)
-          || 'エンドレコードが120文字ではありません。',
+        this.headerRecords.every((record) => this.validateMaxLengthPerRow(record.length))
+          || `${this.RECORD_TYPE.HEADER.label}が${MAX_LENGTH_PER_ROW}文字ではありません。`,
+        this.dataRecords.every((record) => this.validateMaxLengthPerRow(record.length))
+          || `${this.RECORD_TYPE.DATA.label}が${MAX_LENGTH_PER_ROW}文字ではありません。`,
+        this.trailerRecords.every((record) => this.validateMaxLengthPerRow(record.length))
+          || `${this.RECORD_TYPE.TRAILER.label}が${MAX_LENGTH_PER_ROW}文字ではありません。`,
+        this.endRecords.every((record) => this.validateMaxLengthPerRow(record.length))
+          || `${this.RECORD_TYPE.END.label}が${MAX_LENGTH_PER_ROW}文字ではありません。`,
         this.unknownRecords.length === 0
           || '不明なデータ区分のレコードがあります。',
       ];
+    },
+    validateMaxLengthPerRow(length) {
+      return length === 0 || length === MAX_LENGTH_PER_ROW;
     },
   },
 };
