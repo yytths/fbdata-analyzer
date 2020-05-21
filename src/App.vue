@@ -18,7 +18,7 @@
         </v-row>
         <v-row/>
         <v-row>
-          <v-tabs grow center-active>
+          <v-tabs grow center-active background-color="primary">
             <v-tabs-slider></v-tabs-slider>
             <v-tab v-for="rt in Object.values(RECORD_TYPE)" :key="rt.label">
               {{ rt.label }}
