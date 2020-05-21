@@ -32,7 +32,8 @@
                 v-if="rt.value===RECORD_TYPE.TRAILER.value" :items="trailerRecords"/>
               <app-end-record-data-table
                 v-if="rt.value===RECORD_TYPE.END.value" :items="endRecords"/>
-              <app-header-record-data-table v-if="rt.value===RECORD_TYPE.UNKNOWN.value"/>
+              <app-unknown-record-data-table
+                v-if="rt.value===RECORD_TYPE.UNKNOWN.value" :items="unknownRecords"/>
             </v-tab-item>
           </v-tabs>
         </v-row>
@@ -46,6 +47,7 @@ import appHeaderRecordDataTable from './components/AppHeaderRecordDataTable.vue'
 import appDataRecordDataTable from './components/AppDataRecordDataTable.vue';
 import appTrailerRecordDataTable from './components/AppTrailerRecordDataTable.vue';
 import appEndRecordDataTable from './components/AppEndRecordDataTable.vue';
+import appUnknownRecordDataTable from './components/AppUnknownRecordDataTable.vue';
 import { RECORD_TYPE_OBJ } from './util/code';
 
 export default {
@@ -56,6 +58,7 @@ export default {
     appDataRecordDataTable,
     appTrailerRecordDataTable,
     appEndRecordDataTable,
+    appUnknownRecordDataTable,
   },
 
   data: () => ({
@@ -80,6 +83,14 @@ export default {
     endRecords() {
       return this.inputFbData.split('\n').filter(((record) => record.startsWith('9')));
     },
+    unknownRecords() {
+      return this.inputFbData.split('\n').filter(((record) => !(record.startsWith('1')
+        || record.startsWith('2')
+        || record.startsWith('8')
+        || record.startsWith('9')
+        || record.length === 0
+      )));
+    },
   },
 
   methods: {
@@ -93,7 +104,8 @@ export default {
           || 'トレーラレコードが120文字ではありません。',
         this.endRecords.every((record) => record.length === 0 || record.length === 120)
           || 'エンドレコードが120文字ではありません。',
-
+        this.unknownRecords.length === 0
+          || '不明なデータ区分のレコードがあります。',
       ];
     },
   },
