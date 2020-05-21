@@ -18,14 +18,27 @@
         </v-row>
         <v-row/>
         <v-row>
-          <v-col>ヘッダ</v-col>
-          <v-col>データ</v-col>
-          <v-col>トレーラ</v-col>
-          <v-col>エンド</v-col>
+          <v-col @click="clickRecordType('header')" style="cursor: pointer;">ヘッダ</v-col>
+          <v-col @click="clickRecordType('data')" style="cursor: pointer;">データ</v-col>
+          <v-col @click="clickRecordType('trailer')" style="cursor: pointer;">トレーラ</v-col>
+          <v-col @click="clickRecordType('end')" style="cursor: pointer;">エンド</v-col>
+          <v-col @click="clickRecordType('unknown')" style="cursor: pointer;">不明</v-col>
         </v-row>
         <v-row/>
         <v-row justify="center">
-          <app-header-record-data-table/>
+          <app-header-record-data-table
+            v-if="recordType==='header'"/>
+          <app-header-record-data-table
+            v-else-if="recordType==='data'"
+          />
+          <app-header-record-data-table
+           v-else-if="recordType==='trailer'"
+          />
+          <app-header-record-data-table
+            v-else-if="recordType==='end'"/>
+          <span
+            v-else
+          />
         </v-row>
       </v-container>
     </v-content>
@@ -43,6 +56,13 @@ export default {
   },
 
   data: () => ({
+    recordType: '',
   }),
+
+  methods: {
+    clickRecordType(type) {
+      this.recordType = type;
+    },
+  },
 };
 </script>
