@@ -1,24 +1,15 @@
 # fbdata-analyzer
 
-## Project setup
-```
-npm install
-```
+## Description
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+全銀協が提供するFB（ファームバンキング）データを表にするツールです。
 
-### Compiles and minifies for production
-```
-npm run build
-```
+以下のフォーマットを表形式に変換します。
 
-### Lints and fixes files
-```
-npm run lint
-```
+- 総合振込レコード・フォーマット（固定長）
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+  https://www.zenginkyo.or.jp/fileadmin/res/news/news290829.pdf#page=31
+
+## URL
+
+https://yytths.github.io/fbdata-analyzer/
