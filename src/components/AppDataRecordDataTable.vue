@@ -1,14 +1,16 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="records"
-    :items-per-page="5"
-  ></v-data-table>
+  <base-record-data-table :headers="headers" :items="records"/>
 </template>
 
 <script>
+import baseRecordDataTable from './BaseRecordDataTable.vue';
+
 export default {
   name: 'AppDataRecordDataTable',
+
+  components: {
+    baseRecordDataTable,
+  },
 
   props: {
     items: {
