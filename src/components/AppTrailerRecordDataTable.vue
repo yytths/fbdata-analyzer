@@ -19,7 +19,8 @@ export default {
 
   computed: {
     records() {
-      return this.items.map((record) => ({
+      return this.items.map(({ record, row }) => ({
+        row,
         dataPartition: record.substr(0, 1),
         totalNumber: record.substr(1, 6),
         totalFee: record.substr(7, 12),
@@ -30,6 +31,7 @@ export default {
 
   data: () => ({
     headers: [
+      { text: '行', value: 'row', sortable: false },
       { text: 'データ区分', value: 'dataPartition', sortable: false },
       { text: '合計件数', value: 'totalNumber', sortable: false },
       { text: '合計金額', value: 'totalFee', sortable: false },

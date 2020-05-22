@@ -19,7 +19,8 @@ export default {
 
   computed: {
     records() {
-      return this.items.map((record) => ({
+      return this.items.map(({ record, row }) => ({
+        row,
         dataPartition: record.substr(0, 1),
         typeCode: record.substr(1, 2),
         codePartition: record.substr(3, 1),
@@ -39,6 +40,7 @@ export default {
 
   data: () => ({
     headers: [
+      { text: '行', value: 'row', sortable: false },
       { text: 'データ区分', value: 'dataPartition', sortable: false },
       { text: '種別コード', value: 'typeCode', sortable: false },
       { text: 'コード区分', value: 'codePartition', sortable: false },

@@ -82,23 +82,27 @@ export default {
     },
 
     records() {
-      return this.inputFbData.split('\n');
+      return this.inputFbData.split('\n').map((record, index) => ({ record, row: index + 1 }));
     },
 
     headerRecords() {
-      return this.records.filter(((record) => record.startsWith(this.RECORD_TYPE.HEADER.code)));
+      return this.records
+        .filter((({ record }) => record.startsWith(this.RECORD_TYPE.HEADER.code)));
     },
     dataRecords() {
-      return this.records.filter(((record) => record.startsWith(this.RECORD_TYPE.DATA.code)));
+      return this.records
+        .filter((({ record }) => record.startsWith(this.RECORD_TYPE.DATA.code)));
     },
     trailerRecords() {
-      return this.records.filter(((record) => record.startsWith(this.RECORD_TYPE.TRAILER.code)));
+      return this.records
+        .filter((({ record }) => record.startsWith(this.RECORD_TYPE.TRAILER.code)));
     },
     endRecords() {
-      return this.records.filter(((record) => record.startsWith(this.RECORD_TYPE.END.code)));
+      return this.records
+        .filter((({ record }) => record.startsWith(this.RECORD_TYPE.END.code)));
     },
     unknownRecords() {
-      return this.records.filter(((record) => !(record.startsWith(this.RECORD_TYPE.HEADER.code)
+      return this.records.filter((({ record }) => !(record.startsWith(this.RECORD_TYPE.HEADER.code)
         || record.startsWith(this.RECORD_TYPE.DATA.code)
         || record.startsWith(this.RECORD_TYPE.TRAILER.code)
         || record.startsWith(this.RECORD_TYPE.END.code)
@@ -110,13 +114,13 @@ export default {
   methods: {
     validateCounterPerRow() {
       return [
-        this.headerRecords.every((record) => this.validateMaxLengthPerRow(record.length))
+        this.headerRecords.every(({ record }) => this.validateMaxLengthPerRow(record.length))
           || `${this.RECORD_TYPE.HEADER.label}が${MAX_LENGTH_PER_ROW}文字ではありません。`,
-        this.dataRecords.every((record) => this.validateMaxLengthPerRow(record.length))
+        this.dataRecords.every(({ record }) => this.validateMaxLengthPerRow(record.length))
           || `${this.RECORD_TYPE.DATA.label}が${MAX_LENGTH_PER_ROW}文字ではありません。`,
-        this.trailerRecords.every((record) => this.validateMaxLengthPerRow(record.length))
+        this.trailerRecords.every(({ record }) => this.validateMaxLengthPerRow(record.length))
           || `${this.RECORD_TYPE.TRAILER.label}が${MAX_LENGTH_PER_ROW}文字ではありません。`,
-        this.endRecords.every((record) => this.validateMaxLengthPerRow(record.length))
+        this.endRecords.every(({ record }) => this.validateMaxLengthPerRow(record.length))
           || `${this.RECORD_TYPE.END.label}が${MAX_LENGTH_PER_ROW}文字ではありません。`,
         this.unknownRecords.length === 0
           || '不明なデータ区分のレコードがあります。',

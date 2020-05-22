@@ -19,7 +19,8 @@ export default {
 
   computed: {
     records() {
-      return this.items.map((record) => ({
+      return this.items.map(({ record, row }) => ({
+        row,
         dataPartition: record.substr(0, 1),
         destinationBankNumber: record.substr(1, 4),
         destinationBankName: record.substr(5, 15),
@@ -41,6 +42,7 @@ export default {
 
   data: () => ({
     headers: [
+      { text: '行', value: 'row', sortable: false },
       { text: 'データ区分', value: 'dataPartition', sortable: false },
       { text: '被仕向銀行番号', value: 'destinationBankNumber', sortable: false },
       { text: '被仕向銀行名', value: 'destinationBankName', sortable: false },

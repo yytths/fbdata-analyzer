@@ -20,7 +20,8 @@ export default {
 
   computed: {
     records() {
-      return this.items.map((record) => ({
+      return this.items.map(({ record, row }) => ({
+        row,
         unknown: record,
       }));
     },
@@ -28,6 +29,7 @@ export default {
 
   data: () => ({
     headers: [
+      { text: '行', value: 'row', sortable: false },
       { text: '不明', value: 'unknown', sortable: false },
     ],
   }),
