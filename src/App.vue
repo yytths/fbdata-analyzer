@@ -50,15 +50,16 @@
 </template>
 
 <script>
-import appHeaderRecordDataTable from './components/AppHeaderRecordDataTable.vue';
-import appDataRecordDataTable from './components/AppDataRecordDataTable.vue';
-import appTrailerRecordDataTable from './components/AppTrailerRecordDataTable.vue';
-import appEndRecordDataTable from './components/AppEndRecordDataTable.vue';
-import appUnknownRecordDataTable from './components/AppUnknownRecordDataTable.vue';
 import {
   RECORD_TYPE_OBJ,
   MAX_LENGTH_PER_ROW,
 } from './util/code';
+
+const appHeaderRecordDataTable = () => import('./components/AppHeaderRecordDataTable.vue');
+const appDataRecordDataTable = () => import('./components/AppDataRecordDataTable.vue');
+const appTrailerRecordDataTable = () => import('./components/AppTrailerRecordDataTable.vue');
+const appEndRecordDataTable = () => import('./components/AppEndRecordDataTable.vue');
+const appUnknownRecordDataTable = () => import('./components/AppUnknownRecordDataTable.vue');
 
 export default {
   name: 'App',
