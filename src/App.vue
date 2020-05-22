@@ -14,7 +14,14 @@
     <v-content>
       <v-container>
         <v-row>
-          <v-textarea :rules="validateCounterPerRow()" v-model="inputFbData"/>
+          <v-textarea
+            placeholder="FBデータを貼り付けてください"
+            rows="5"
+            :outlined="true"
+            :filled="true"
+            :rules="validateCounterPerRow()"
+            v-model="inputFbData"
+          />
         </v-row>
         <v-row/>
         <v-row>
@@ -74,20 +81,24 @@ export default {
       return RECORD_TYPE_OBJ;
     },
 
+    records() {
+      return this.inputFbData.split('\n');
+    },
+
     headerRecords() {
-      return this.inputFbData.split('\n').filter(((record) => record.startsWith(this.RECORD_TYPE.HEADER.code)));
+      return this.records.filter(((record) => record.startsWith(this.RECORD_TYPE.HEADER.code)));
     },
     dataRecords() {
-      return this.inputFbData.split('\n').filter(((record) => record.startsWith(this.RECORD_TYPE.DATA.code)));
+      return this.records.filter(((record) => record.startsWith(this.RECORD_TYPE.DATA.code)));
     },
     trailerRecords() {
-      return this.inputFbData.split('\n').filter(((record) => record.startsWith(this.RECORD_TYPE.TRAILER.code)));
+      return this.records.filter(((record) => record.startsWith(this.RECORD_TYPE.TRAILER.code)));
     },
     endRecords() {
-      return this.inputFbData.split('\n').filter(((record) => record.startsWith(this.RECORD_TYPE.END.code)));
+      return this.records.filter(((record) => record.startsWith(this.RECORD_TYPE.END.code)));
     },
     unknownRecords() {
-      return this.inputFbData.split('\n').filter(((record) => !(record.startsWith(this.RECORD_TYPE.HEADER.code)
+      return this.records.filter(((record) => !(record.startsWith(this.RECORD_TYPE.HEADER.code)
         || record.startsWith(this.RECORD_TYPE.DATA.code)
         || record.startsWith(this.RECORD_TYPE.TRAILER.code)
         || record.startsWith(this.RECORD_TYPE.END.code)
