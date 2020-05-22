@@ -29,7 +29,12 @@ export default {
 
   data: () => ({
     headers: [
-      { text: '行', value: 'row', sortable: false },
+      {
+        text: '行',
+        value: 'row',
+        sortable: false,
+        width: '2rem',
+      },
       { text: 'データ区分', value: 'dataPartition', sortable: false },
       { text: 'ダミー', value: 'dummy', sortable: false },
     ],

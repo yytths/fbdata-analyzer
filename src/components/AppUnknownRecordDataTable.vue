@@ -3,7 +3,6 @@
     :headers="headers"
     :items="records"
     :items-per-page="5"
-    :hide-default-header="true"
   ></v-data-table>
 </template>
 
@@ -29,7 +28,12 @@ export default {
 
   data: () => ({
     headers: [
-      { text: '行', value: 'row', sortable: false },
+      {
+        text: '行',
+        value: 'row',
+        sortable: false,
+        width: '2rem',
+      },
       { text: '不明', value: 'unknown', sortable: false },
     ],
   }),
