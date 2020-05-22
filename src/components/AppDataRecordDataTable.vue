@@ -50,7 +50,12 @@ export default {
         sortable: false,
         width: '2rem',
       },
-      { text: 'データ区分', value: 'dataPartition', sortable: false },
+      {
+        text: 'データ区分',
+        value: 'dataPartition',
+        sortable: false,
+        width: '4.5rem',
+      },
       { text: '被仕向銀行番号', value: 'destinationBankNumber', sortable: false },
       { text: '被仕向銀行名', value: 'destinationBankName', sortable: false },
       { text: '被仕向支店番号', value: 'destinationBranchNumber', sortable: false },

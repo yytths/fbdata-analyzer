@@ -39,7 +39,12 @@ export default {
         sortable: false,
         width: '2rem',
       },
-      { text: 'データ区分', value: 'dataPartition', sortable: false },
+      {
+        text: 'データ区分',
+        value: 'dataPartition',
+        sortable: false,
+        width: '4.5rem',
+      },
       { text: '合計件数', value: 'totalNumber', sortable: false },
       { text: '合計金額', value: 'totalFee', sortable: false },
       { text: 'ダミー', value: 'dummy', sortable: false },

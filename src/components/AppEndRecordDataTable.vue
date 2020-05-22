@@ -37,7 +37,12 @@ export default {
         sortable: false,
         width: '2rem',
       },
-      { text: 'データ区分', value: 'dataPartition', sortable: false },
+      {
+        text: 'データ区分',
+        value: 'dataPartition',
+        sortable: false,
+        width: '4.5rem',
+      },
       { text: 'ダミー', value: 'dummy', sortable: false },
     ],
   }),
