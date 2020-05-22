@@ -23,6 +23,11 @@
       <template v-slot:no-results>
         レコードがみつかりません
       </template>
+
+      <!-- 親コンポーネントからVuetifyのdatatableのslotを操作する -->
+      <template v-for="(slotContent, slotName) of $scopedSlots" #[slotName]="data">
+        <slot :name="slotName" v-bind="data"/>
+      </template>
     </v-data-table>
   </v-card>
 </template>
