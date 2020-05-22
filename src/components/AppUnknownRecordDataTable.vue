@@ -1,15 +1,16 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="records"
-    :items-per-page="5"
-    :hide-default-header="true"
-  ></v-data-table>
+  <base-record-data-table :headers="headers" :items="records"/>
 </template>
 
 <script>
+import baseRecordDataTable from './BaseRecordDataTable.vue';
+
 export default {
   name: 'AppUnknownRecordDataTable',
+
+  components: {
+    baseRecordDataTable,
+  },
 
   props: {
     items: {
@@ -20,7 +21,8 @@ export default {
 
   computed: {
     records() {
-      return this.items.map((record) => ({
+      return this.items.map(({ record, row }) => ({
+        row,
         unknown: record,
       }));
     },
@@ -28,6 +30,12 @@ export default {
 
   data: () => ({
     headers: [
+      {
+        text: '行',
+        value: 'row',
+        sortable: false,
+        width: '2rem',
+      },
       { text: '不明', value: 'unknown', sortable: false },
     ],
   }),

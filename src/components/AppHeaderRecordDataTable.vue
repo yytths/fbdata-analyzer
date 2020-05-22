@@ -1,14 +1,16 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="records"
-    :items-per-page="5"
-  ></v-data-table>
+  <base-record-data-table :headers="headers" :items="records"/>
 </template>
 
 <script>
+import baseRecordDataTable from './BaseRecordDataTable.vue';
+
 export default {
   name: 'AppHeaderRecordDataTable',
+
+  components: {
+    baseRecordDataTable,
+  },
 
   props: {
     items: {
@@ -19,7 +21,8 @@ export default {
 
   computed: {
     records() {
-      return this.items.map((record) => ({
+      return this.items.map(({ record, row }) => ({
+        row,
         dataPartition: record.substr(0, 1),
         typeCode: record.substr(1, 2),
         codePartition: record.substr(3, 1),
@@ -31,7 +34,7 @@ export default {
         destinationBranchNumber: record.substr(77, 3),
         destinationBranchName: record.substr(80, 15),
         depositItemClient: record.substr(95, 1),
-        aoountNumberClient: record.substr(96, 7),
+        accountNumberClient: record.substr(96, 7),
         dummy: record.substr(103, 17),
       }));
     },
@@ -39,7 +42,18 @@ export default {
 
   data: () => ({
     headers: [
-      { text: 'データ区分', value: 'dataPartition', sortable: false },
+      {
+        text: '行',
+        value: 'row',
+        sortable: false,
+        width: '2rem',
+      },
+      {
+        text: 'データ区分',
+        value: 'dataPartition',
+        sortable: false,
+        width: '4.5rem',
+      },
       { text: '種別コード', value: 'typeCode', sortable: false },
       { text: 'コード区分', value: 'codePartition', sortable: false },
       { text: '振込依頼人コード', value: 'transferRequesterCode', sortable: false },
@@ -50,7 +64,7 @@ export default {
       { text: '仕向支店番号', value: 'destinationBranchNumber', sortable: false },
       { text: '仕向支店名  ', value: 'destinationBranchName', sortable: false },
       { text: '預金種目(依頼人)', value: 'depositItemClient', sortable: false },
-      { text: '口座番号(依頼人)', value: 'aoountNumberClient', sortable: false },
+      { text: '口座番号(依頼人)', value: 'accountNumberClient', sortable: false },
       { text: 'ダミー', value: 'dummy', sortable: false },
     ],
   }),

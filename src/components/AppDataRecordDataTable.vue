@@ -1,14 +1,16 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="records"
-    :items-per-page="5"
-  ></v-data-table>
+  <base-record-data-table :headers="headers" :items="records"/>
 </template>
 
 <script>
+import baseRecordDataTable from './BaseRecordDataTable.vue';
+
 export default {
   name: 'AppDataRecordDataTable',
+
+  components: {
+    baseRecordDataTable,
+  },
 
   props: {
     items: {
@@ -19,7 +21,8 @@ export default {
 
   computed: {
     records() {
-      return this.items.map((record) => ({
+      return this.items.map(({ record, row }) => ({
+        row,
         dataPartition: record.substr(0, 1),
         destinationBankNumber: record.substr(1, 4),
         destinationBankName: record.substr(5, 15),
@@ -41,7 +44,18 @@ export default {
 
   data: () => ({
     headers: [
-      { text: 'データ区分', value: 'dataPartition', sortable: false },
+      {
+        text: '行',
+        value: 'row',
+        sortable: false,
+        width: '2rem',
+      },
+      {
+        text: 'データ区分',
+        value: 'dataPartition',
+        sortable: false,
+        width: '4.5rem',
+      },
       { text: '被仕向銀行番号', value: 'destinationBankNumber', sortable: false },
       { text: '被仕向銀行名', value: 'destinationBankName', sortable: false },
       { text: '被仕向支店番号', value: 'destinationBranchNumber', sortable: false },
