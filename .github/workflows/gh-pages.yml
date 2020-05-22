@@ -3,7 +3,7 @@ name: github pages
 on:
   push:
     branches:
-      - master
+      - develop
 
 jobs:
   deploy:
@@ -23,6 +23,8 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+    
+      - run: npm install -g @vue/cli
 
       - run: npm run build
 
