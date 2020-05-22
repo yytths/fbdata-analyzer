@@ -17,10 +17,11 @@
       :items="items"
       :items-per-page="5"
     >
-      <template v-slot:no-data>
+      <template #no-data>
         レコードがありません
       </template>
-      <template v-slot:no-results>
+
+      <template #no-results>
         レコードがみつかりません
       </template>
 
