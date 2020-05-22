@@ -31,7 +31,7 @@ export default {
         destinationBranchNumber: record.substr(77, 3),
         destinationBranchName: record.substr(80, 15),
         depositItemClient: record.substr(95, 1),
-        aoountNumberClient: record.substr(96, 7),
+        accountNumberClient: record.substr(96, 7),
         dummy: record.substr(103, 17),
       }));
     },
@@ -50,7 +50,7 @@ export default {
       { text: '仕向支店番号', value: 'destinationBranchNumber', sortable: false },
       { text: '仕向支店名  ', value: 'destinationBranchName', sortable: false },
       { text: '預金種目(依頼人)', value: 'depositItemClient', sortable: false },
-      { text: '口座番号(依頼人)', value: 'aoountNumberClient', sortable: false },
+      { text: '口座番号(依頼人)', value: 'accountNumberClient', sortable: false },
       { text: 'ダミー', value: 'dummy', sortable: false },
     ],
   }),
