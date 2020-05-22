@@ -19,7 +19,7 @@
             rows="5"
             :outlined="true"
             :filled="true"
-            :rules="validateCounterPerRow()"
+            :rules="validates()"
             v-model="inputFbData"
           />
         </v-row>
@@ -112,6 +112,20 @@ export default {
   },
 
   methods: {
+    validates() {
+      return [
+        ...this.validateCounterPerRow(),
+        ...this.validateDataPartition(),
+      ];
+    },
+
+    validateDataPartition() {
+      return [
+        this.unknownRecords.length === 0
+          || '不明なデータ区分のレコードがあります。',
+      ];
+    },
+
     validateCounterPerRow() {
       return [
         this.headerRecords.every(({ record }) => this.validateMaxLengthPerRow(record.length))
@@ -122,8 +136,6 @@ export default {
           || `${this.RECORD_TYPE.TRAILER.label}が${MAX_LENGTH_PER_ROW}文字ではありません。`,
         this.endRecords.every(({ record }) => this.validateMaxLengthPerRow(record.length))
           || `${this.RECORD_TYPE.END.label}が${MAX_LENGTH_PER_ROW}文字ではありません。`,
-        this.unknownRecords.length === 0
-          || '不明なデータ区分のレコードがあります。',
       ];
     },
     validateMaxLengthPerRow(length) {
