@@ -26,6 +26,8 @@ jobs:
     
       - run: npm install -g @vue/cli
 
+      - run: npm i --production
+
       - run: npm run build
 
       - name: deploy
