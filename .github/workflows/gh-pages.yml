@@ -26,6 +26,8 @@ jobs:
     
       - run: npm install -g @vue/cli
 
+      - run: rm -rf node_modules package-lock.json
+      
       - run: npm i --production
 
       - run: npm run build
