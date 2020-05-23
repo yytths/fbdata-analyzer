@@ -6,7 +6,7 @@
     >
       <app-tooltip-column-hint
         :key="slot"
-        :name="text"
+        :name='text'
         :charCode="appCharCode"
         :charLength="appCharLen"
         :hint="appHint"
@@ -81,19 +81,66 @@ export default {
           '9：エンドレコード',
         ].join('\n'),
       },
-      { text: '種別コード', value: 'typeCode', sortable: false },
-      { text: 'コード区分', value: 'codePartition', sortable: false },
-      { text: '振込依頼人コード', value: 'transferRequesterCode', sortable: false },
-      { text: '振込依頼人名 ', value: 'transferRequesterName', sortable: false },
-      { text: '取組日 ', value: 'tradingDay', sortable: false },
-      { text: '仕向銀行番号', value: 'destinationBankNumber', sortable: false },
-      { text: '仕向銀行名', value: 'destinationBankName', sortable: false },
-      { text: '仕向支店番号', value: 'destinationBranchNumber', sortable: false },
-      { text: '仕向支店名  ', value: 'destinationBranchName', sortable: false },
-      { text: '預金種目(依頼人)', value: 'depositItemClient', sortable: false },
-      { text: '口座番号(依頼人)', value: 'accountNumberClient', sortable: false },
-      { text: 'ダミー', value: 'dummy', sortable: false },
-    ],
+      {
+        text: '種別コード',
+        value: 'typeCode',
+        sortable: false,
+      },
+      {
+        text: 'コード区分',
+        value: 'codePartition',
+        sortable: false,
+      },
+      {
+        text: '振込依頼人コード',
+        value: 'transferRequesterCode',
+        sortable: false,
+      },
+      {
+        text: '振込依頼人名 ',
+        value: 'transferRequesterName',
+        sortable: false,
+      },
+      {
+        text: '取組日 ',
+        value: 'tradingDay',
+        sortable: false,
+      },
+      {
+        text: '仕向銀行番号',
+        value: 'destinationBankNumber',
+        sortable: false,
+      },
+      {
+        text: '仕向銀行名',
+        value: 'destinationBankName',
+        sortable: false,
+      },
+      {
+        text: '仕向支店番号',
+        value: 'destinationBranchNumber',
+        sortable: false,
+      },
+      {
+        text: '仕向支店名  ',
+        value: 'destinationBranchName',
+        sortable: false,
+      },
+      {
+        text: '預金種目（依頼人）',
+        value: 'depositItemClient',
+        sortable: false,
+      },
+      {
+        text: '口座番号（依頼人）',
+        value: 'accountNumberClient',
+        sortable: false,
+      },
+      {
+        text: 'ダミー',
+        value: 'dummy',
+        sortable: false,
+      }],
   }),
 };
 </script>
