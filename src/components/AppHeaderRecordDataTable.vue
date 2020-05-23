@@ -1,15 +1,16 @@
 <template>
   <base-record-data-table :headers="headers" :items="records">
-    <template #header.dataPartition="{ header: { text, appCharCode, appCharLen, appHint } }">
+    <template
+      v-for="slot of slots"
+      #[slot]="{ header: { text, appCharCode, appCharLen, appHint } }"
+    >
       <app-tooltip-column-hint
+        :key="slot"
         :name="text"
         :charCode="appCharCode"
         :charLength="appCharLen"
         :hint="appHint"
       />
-    </template>
-    <template #header.typeCode>
-      <span style="color:red;">メートル</span>
     </template>
   </base-record-data-table>
 </template>
@@ -34,6 +35,9 @@ export default {
   },
 
   computed: {
+    slots() {
+      return this.headers.map(({ value }) => `header.${value}`);
+    },
     records() {
       return this.items.map(({ record, row }) => ({
         row,
