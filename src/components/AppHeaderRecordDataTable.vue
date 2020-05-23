@@ -2,7 +2,7 @@
   <base-record-data-table :headers="headers" :items="records">
     <template
       v-for="slot of slots"
-      #[slot]="{ header: { text, appCharCode, appCharLen, appHint } }"
+      #[slot]="{ header: { text, appCharCode, appCharLen, appHint, appRequired } }"
     >
       <app-tooltip-column-hint
         :key="slot"
@@ -10,6 +10,7 @@
         :charCode="appCharCode"
         :charLength="appCharLen"
         :hint="appHint"
+        :isRequired="appRequired"
       />
     </template>
   </base-record-data-table>
@@ -143,6 +144,7 @@ export default {
         appCharCode: 'C',
         appCharLen: 15,
         appHint: '',
+        appRequired: false,
       },
       {
         text: '仕向支店番号',
@@ -159,7 +161,7 @@ export default {
         appCharCode: 'C',
         appCharLen: 15,
         appHint: '',
-
+        appRequired: false,
       },
       {
         text: '預金種目（依頼人）',
@@ -172,6 +174,7 @@ export default {
           '「2」(当座預金) ',
           '「9」(その他)',
         ].join('\n'),
+        appRequired: false,
       },
       {
         text: '口座番号（依頼人）',
@@ -180,6 +183,7 @@ export default {
         appCharCode: 'N',
         appCharLen: 7,
         appHint: '',
+        appRequired: false,
       },
       {
         text: 'ダミー',

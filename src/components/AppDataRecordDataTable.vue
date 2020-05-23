@@ -2,7 +2,7 @@
   <base-record-data-table :headers="headers" :items="records">
     <template
       v-for="slot of slots"
-      #[slot]="{ header: { text, appCharCode, appCharLen, appHint } }"
+      #[slot]="{ header: { text, appCharCode, appCharLen, appHint, appRequired } }"
     >
       <app-tooltip-column-hint
         :key="slot"
@@ -10,6 +10,7 @@
         :charCode="appCharCode"
         :charLength="appCharLen"
         :hint="appHint"
+        :isRequired="appRequired"
       />
     </template>
   </base-record-data-table>
@@ -98,6 +99,7 @@ export default {
         appCharCode: 'C',
         appCharLen: 15,
         appHint: '',
+        appRequired: false,
       },
       {
         text: '被仕向支店番号',
@@ -114,6 +116,7 @@ export default {
         appCharCode: 'C',
         appCharLen: 15,
         appHint: '',
+        appRequired: false,
       },
       {
         text: '手形交換所番号 ',
@@ -122,6 +125,7 @@ export default {
         appCharCode: 'N',
         appCharLen: 4,
         appHint: '',
+        appRequired: false,
       },
       {
         text: '預金種目',
@@ -180,6 +184,7 @@ export default {
         appCharCode: 'C',
         appCharLen: 20,
         appHint: 'マッチングキーを設定',
+        appRequired: false,
       },
       {
         text: '振込指定区分',
@@ -191,6 +196,7 @@ export default {
           '「7」(テレ振込)',
           '「8」(文書振込) ',
         ].join('\n'),
+        appRequired: false,
       },
       {
         text: '識別表示',
@@ -202,6 +208,7 @@ export default {
           '「Y」またはスペース',
           '「Y」の場合、「EDI 情報」列は「EDI情報」をあらわす',
         ].join('\n'),
+        appRequired: false,
       },
       {
         text: 'ダミー',
