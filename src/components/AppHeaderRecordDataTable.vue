@@ -1,19 +1,12 @@
 <template>
   <base-record-data-table :headers="headers" :items="records">
     <template #header.dataPartition="{ header: { text, appCharCode, appCharLen, appHint } }">
-      <template>
-        <v-tooltip top>
-          <template v-slot:activator="{ on }">
-            <span v-on="on">{{ text }}</span>
-          </template>
-          <template>
-            <span style="margin-right: 0.5rem">文字種：{{ appCharCode }}</span>
-            <span>文字長：{{ appCharLen }}</span>
-            <br>
-            <span style="white-space:pre-wrap; word-wrap:break-word;">{{ appHint }}</span>
-          </template>
-        </v-tooltip>
-      </template>
+      <app-tooltip-column-hint
+        :name="text"
+        :charCode="appCharCode"
+        :charLength="appCharLen"
+        :hint="appHint"
+      />
     </template>
     <template #header.typeCode>
       <span style="color:red;">メートル</span>
@@ -23,12 +16,14 @@
 
 <script>
 import baseRecordDataTable from './BaseRecordDataTable.vue';
+import appTooltipColumnHint from './AppTooltipColumnHint.vue';
 
 export default {
   name: 'AppHeaderRecordDataTable',
 
   components: {
     baseRecordDataTable,
+    appTooltipColumnHint,
   },
 
   props: {
