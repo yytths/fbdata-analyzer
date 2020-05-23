@@ -1,5 +1,24 @@
 <template>
-  <base-record-data-table :headers="headers" :items="records"/>
+  <base-record-data-table :headers="headers" :items="records">
+    <template #header.dataPartition="{ header: { text, appCharCode, appCharLen, appHint } }">
+      <template>
+        <v-tooltip top>
+          <template v-slot:activator="{ on }">
+            <span v-on="on">{{ text }}</span>
+          </template>
+          <template>
+            <span style="margin-right: 0.5rem">文字種：{{ appCharCode }}</span>
+            <span>文字長：{{ appCharLen }}</span>
+            <br>
+            <span style="white-space:pre-wrap; word-wrap:break-word;">{{ appHint }}</span>
+          </template>
+        </v-tooltip>
+      </template>
+    </template>
+    <template #header.typeCode>
+      <span style="color:red;">メートル</span>
+    </template>
+  </base-record-data-table>
 </template>
 
 <script>
@@ -41,6 +60,7 @@ export default {
   },
 
   data: () => ({
+    // prefixにappがついているものは本アプリ特有のプロパティ
     headers: [
       {
         text: '行',
@@ -53,6 +73,14 @@ export default {
         value: 'dataPartition',
         sortable: false,
         width: '4.5rem',
+        appCharCode: 'N',
+        appCharLen: 1,
+        appHint: [
+          '1：ヘッダレコード',
+          '2：データレコード',
+          '8：トレーラレコード',
+          '9：エンドレコード',
+        ].join('\n'),
       },
       { text: '種別コード', value: 'typeCode', sortable: false },
       { text: 'コード区分', value: 'codePartition', sortable: false },
