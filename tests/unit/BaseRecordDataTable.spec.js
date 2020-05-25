@@ -63,8 +63,5 @@ describe('BaseRecordDataTable.vue', () => {
 
     const noDataText = wrapper.find('.v-data-table__empty-wrapper > td');
     expect(noDataText.text()).toBe(expected);
-
-    // TODO: WARNをなくすために、@vue/test-utils@1.0.0に更新する。
-    // https://github.com/vuejs/vue-test-utils/issues/1407
   });
 });
