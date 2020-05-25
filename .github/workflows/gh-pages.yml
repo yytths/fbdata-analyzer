@@ -30,6 +30,8 @@ jobs:
       
       - run: npm i
 
+      - run: npm run test:unit
+
       - run: npm run build
 
       - name: deploy
