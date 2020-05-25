@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App.vue normal test. layout 1`] = `
+<div data-app="true" class="v-application v-application--is-ltr theme--light" id="app">
+  <div class="v-application--wrap">
+    <header class="v-sheet v-sheet--tile theme--dark v-toolbar v-toolbar--dense v-app-bar v-app-bar--fixed primary" style="height: 48px; margin-top: 0px; transform: translateY(0px); left: 0px; right: 0px;">
+      <div class="v-toolbar__content" style="height: 48px;">
+        <div class="d-flex align-center">
+          FBデータ解析ツール
+        </div>
+      </div>
+    </header>
+    <main class="v-content" style="padding: 48px 0px 0px 0px;">
+      <div class="v-content__wrap">
+        <div class="container">
+          <div class="row">
+            <div class="v-input v-textarea theme--light v-text-field v-text-field--single-line v-text-field--filled v-text-field--enclosed v-text-field--outlined v-text-field--placeholder">
+              <div class="v-input__control">
+                <div class="v-input__slot">
+                  <fieldset aria-hidden="true">
+                    <legend><span>​</span></legend>
+                  </fieldset>
+                  <div class="v-text-field__slot"><textarea id="input-6" placeholder="FBデータを貼り付けてください" rows="5"></textarea></div>
+                </div>
+                <div class="v-text-field__details">
+                  <div class="v-messages theme--light">
+                    <transition-group-stub tag="div" name="message-transition" class="v-messages__wrapper"></transition-group-stub>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row"></div>
+          <div class="row">
+            <div class="v-tabs v-tabs--grow theme--light">
+              <div role="tablist" class="v-item-group theme--light v-slide-group v-tabs-bar v-tabs-bar--is-mobile primary--text primary">
+                <div class="v-slide-group__prev v-slide-group__prev--disabled">
+                  <transition-stub name="fade-transition"></transition-stub>
+                </div>
+                <div class="v-slide-group__wrapper">
+                  <div class="v-slide-group__content v-tabs-bar__content">
+                    <div class="v-tabs-slider-wrapper" style="transition: none;">
+                      <div class="v-tabs-slider"></div>
+                    </div>
+                    <div tabindex="0" aria-selected="true" role="tab" class="v-tab v-tab--active">
+                      ヘッダレコード
+                    </div>
+                    <div tabindex="0" aria-selected="false" role="tab" class="v-tab">
+                      データレコード
+                    </div>
+                    <div tabindex="0" aria-selected="false" role="tab" class="v-tab">
+                      トレーラレコード
+                    </div>
+                    <div tabindex="0" aria-selected="false" role="tab" class="v-tab">
+                      エンドレコード
+                    </div>
+                    <div tabindex="0" aria-selected="false" role="tab" class="v-tab">
+                      不明
+                    </div>
+                  </div>
+                </div>
+                <div class="v-slide-group__next v-slide-group__next--disabled">
+                  <transition-stub name="fade-transition"></transition-stub>
+                </div>
+              </div>
+              <div class="v-window v-item-group theme--light v-tabs-items">
+                <div class="v-window__container">
+                  <transition-stub name="">
+                    <!---->
+                  </transition-stub>
+                  <transition-stub name="">
+                    <!---->
+                  </transition-stub>
+                  <transition-stub name="">
+                    <!---->
+                  </transition-stub>
+                  <transition-stub name="">
+                    <!---->
+                  </transition-stub>
+                  <transition-stub name="">
+                    <!---->
+                  </transition-stub>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+`;
