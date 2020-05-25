@@ -53,17 +53,59 @@ describe('BaseRecordDataTable.vue', () => {
     expect(valueElements.at(1).text()).toBe('2');
   });
 
-  it('normal test. no record message.', () => {
-    const expected = 'レコードがありません';
-
+  it('normal test. no record message.', () => {    
     const wrapper = mount(BaseRecordDataTable, {
       localVue,
       vuetify,
     });
     // With jest we can create snapshot files of the HTML output
     expect(wrapper.html()).toMatchSnapshot();
-
+    
     const noDataText = wrapper.find('.v-data-table__empty-wrapper > td');
-    expect(noDataText.text()).toBe(expected);
+    const noDataMessage = 'レコードがありません';
+    expect(noDataText.text()).toBe(noDataMessage);
+  });
+
+  it('normal test. no search message.', async () => {
+    const headers = [
+      {
+        text: 'テキスト1',
+        value: 'textOne',
+      },
+      {
+        text: 'テキスト2',
+        value: 'textTwo',
+      },
+    ];
+    const items = [
+      {
+        textOne: 1,
+        textTwo: 2,
+      }
+    ];
+    const wrapper = mount(BaseRecordDataTable, {
+      localVue,
+      vuetify,
+      propsData: {
+        headers,
+        items,
+      }
+    });
+
+    // input
+    const ele = wrapper.find('#input-42');
+    ele.setValue('no-search');
+    await wrapper.vm.$nextTick();
+
+    // With jest we can create snapshot files of the HTML output
+    expect(wrapper.html()).toMatchSnapshot();
+
+    const headerElements = wrapper.findAll('.v-data-table-header > tr > th');
+    expect(headerElements.at(0).find('span').text()).toBe('テキスト1');
+    expect(headerElements.at(1).find('span').text()).toBe('テキスト2');
+
+    const noSearchMessage = 'レコードがみつかりません';
+    const noDataText = wrapper.find('.v-data-table__empty-wrapper > td');
+    expect(noDataText.text()).toBe(noSearchMessage);
   });
 });
