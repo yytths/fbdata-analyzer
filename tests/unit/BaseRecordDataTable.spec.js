@@ -15,6 +15,42 @@ describe('BaseRecordDataTable.vue', () => {
   beforeEach(() => {
     vuetify = new Vuetify();
   });
+
+  it('normal test. 1 records.', () => {
+    const headers = [
+      {
+        text: 'テキスト1',
+        value: 'textOne',
+      },
+      {
+        text: 'テキスト2',
+        value: 'textTwo',
+      },
+    ];
+    const items = [
+      {
+        textOne: 1,
+        textTwo: 2,
+      }
+    ];
+    const wrapper = mount(BaseRecordDataTable, {
+      localVue,
+      vuetify,
+      propsData: {
+        headers,
+        items,
+      }
+    });
+    // With jest we can create snapshot files of the HTML output
+    expect(wrapper.html()).toMatchSnapshot();
+
+    const firstColumnHeaderElement = wrapper.find('.v-data-table-header > tr > th > span');
+    expect(firstColumnHeaderElement.text()).toBe('テキスト1');
+
+    const firstColumnValueElement = wrapper.find('.v-data-table__wrapper > table > tbody > tr > td');
+    expect(firstColumnValueElement.text()).toBe('1');
+  });
+
   it('normal test. no record message.', () => {
     const expected = 'レコードがありません';
 
