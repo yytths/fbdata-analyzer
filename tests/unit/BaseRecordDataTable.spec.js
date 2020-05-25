@@ -44,11 +44,13 @@ describe('BaseRecordDataTable.vue', () => {
     // With jest we can create snapshot files of the HTML output
     expect(wrapper.html()).toMatchSnapshot();
 
-    const firstColumnHeaderElement = wrapper.find('.v-data-table-header > tr > th > span');
-    expect(firstColumnHeaderElement.text()).toBe('テキスト1');
+    const headerElements = wrapper.findAll('.v-data-table-header > tr > th');
+    const valueElements = wrapper.findAll('.v-data-table__wrapper > table > tbody > tr > td');
 
-    const firstColumnValueElement = wrapper.find('.v-data-table__wrapper > table > tbody > tr > td');
-    expect(firstColumnValueElement.text()).toBe('1');
+    expect(headerElements.at(0).find('span').text()).toBe('テキスト1');
+    expect(valueElements.at(0).text()).toBe('1');
+    expect(headerElements.at(1).find('span').text()).toBe('テキスト2');
+    expect(valueElements.at(1).text()).toBe('2');
   });
 
   it('normal test. no record message.', () => {
