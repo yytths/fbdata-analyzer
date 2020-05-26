@@ -323,6 +323,55 @@ describe('App.vue', () => {
     });
   });
 
+  it('abnormal test. unknown record input', async () => {
+    const wrapper = mount(App, {
+      localVue,
+      vuetify,
+    });
+
+    const unknownRecordData = [
+      '0                                                                                                                       ',
+    ];
+
+    const data = [
+      unknownRecordData.join('\n'),
+    ].join('\n');
+
+    await _inputTextarea(wrapper, data);
+
+    const tabsElements = wrapper.findAll('.v-slide-group__wrapper > div > div');
+    await tabsElements.at(5).trigger('click');
+    await wrapper.vm.$nextTick();
+    expect(tabsElements.at(5).classes()).toContain('v-tab--active');
+
+    // With jest we can create snapshot files of the HTML output
+    expect(wrapper.html()).toMatchSnapshot();
+
+    _assertInputareaErrorMessage(wrapper, '不明なデータ区分のレコードがあります。');
+
+    const tableElement = wrapper.findAll('.v-data-table__wrapper').at(1);
+    const headerElements = tableElement.findAll('table > thead > tr > th');
+    [
+      '行',
+      '不明',
+    ].forEach((expected, index) => {
+      expect(headerElements.at(index).text()).toBe(expected);    
+    });
+
+    const bodyElements = tableElement.findAll('table > tbody > tr');
+    [
+      [
+        '1',
+        '0',
+      ],
+    ].forEach((record, recordIndex) => {
+      const columns = bodyElements.at(recordIndex).findAll('td');
+      record.forEach((expected, columnIndex) => {
+        expect(columns.at(columnIndex).text()).toBe(expected);
+      })
+    });
+  });
+
   it('abnormal test. invalid input', async () => {
     const wrapper = mount(App, {
       localVue,
@@ -349,10 +398,6 @@ describe('App.vue', () => {
     _assertInputareaErrorMessage(wrapper, 'エンドレコードが120文字ではありません。');
     await _inputTextarea(wrapper, _createRandomInputTestData('9'.padEnd(11, '0')));
     _assertInputareaErrorMessage(wrapper, 'エンドレコードが120文字ではありません。');
-
-    // レコードタイプが未知
-    await _inputTextarea(wrapper, _createRandomInputTestData('unknown'.padEnd(10, '0')));
-    _assertInputareaErrorMessage(wrapper, '不明なデータ区分のレコードがあります。');
   });
 
   const _inputTextarea = async (wrapper, inputText) => {
