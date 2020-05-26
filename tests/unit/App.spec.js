@@ -39,6 +39,70 @@ describe('App.vue', () => {
     expect(tabsElements.at(5).text()).toBe('不明');
   });
 
+  it('normal test. header record input', async () => {
+    const wrapper = mount(App, {
+      localVue,
+      vuetify,
+    });
+
+    const headerRecordData = [
+      '12301234567890ｻﾝﾌﾟﾙﾀﾛｳ                                12211234               123               21234567                 ',
+    ];
+
+    const data = [
+      headerRecordData.join('\n'),
+    ].join('\n');
+
+    await _inputTextarea(wrapper, data);
+
+    const tabsElements = wrapper.findAll('.v-slide-group__wrapper > div > div');
+    expect(tabsElements.at(1).classes()).toContain('v-tab--active');
+
+    // With jest we can create snapshot files of the HTML output
+    expect(wrapper.html()).toMatchSnapshot();
+
+    const tableElement = wrapper.find('.v-data-table__wrapper');
+    const headerElements = tableElement.findAll('table > thead > tr > th');
+    const bodyElements = tableElement.findAll('table > tbody > tr > td');
+    [
+      '行',
+      'データ区分',
+      '種別コード',
+      'コード区分',
+      '振込依頼人コード',
+      '振込依頼人名',
+      '取組日',
+      '仕向銀行番号',
+      '仕向銀行名',
+      '仕向支店番号',
+      '仕向支店名',
+      '預金種目（依頼人）',
+      '口座番号（依頼人）',
+      'ダミー',
+    ].forEach((expected, index) => {
+      expect(headerElements.at(index).find('span').text()).toBe(expected);    
+    });
+
+    [
+      '1',
+      '1',
+      '23',
+      '0',
+      '1234567890',
+      'ｻﾝﾌﾟﾙﾀﾛｳ',
+      '1221',
+      '1234',
+      '',
+      '123',
+      '',
+      '2',
+      '1234567',
+      '',
+    ].forEach((expected, index) => {
+      expect(bodyElements.at(index).text()).toBe(expected);
+    });
+  });
+
   it('abnormal test. invalid input', async () => {
     const wrapper = mount(App, {
       localVue,
