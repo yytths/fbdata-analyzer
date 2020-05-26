@@ -29,8 +29,8 @@ export default {
       type: String,
     },
     charLength: {
-      default() { return '-'; },
-      type: String,
+      default() { return 0; },
+      type: Number,
     },
     hint: {
       default() { return ''; },

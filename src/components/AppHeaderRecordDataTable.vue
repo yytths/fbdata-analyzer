@@ -111,7 +111,7 @@ export default {
         appHint: '取引企業コード',
       },
       {
-        text: '振込依頼人名 ',
+        text: '振込依頼人名',
         value: 'transferRequesterName',
         sortable: false,
         appCharCode: 'C',
@@ -119,7 +119,7 @@ export default {
         appHint: '',
       },
       {
-        text: '取組日 ',
+        text: '取組日',
         value: 'tradingDay',
         sortable: false,
         appCharCode: 'N',
@@ -155,7 +155,7 @@ export default {
         appHint: '統一店番号',
       },
       {
-        text: '仕向支店名  ',
+        text: '仕向支店名',
         value: 'destinationBranchName',
         sortable: false,
         appCharCode: 'C',
@@ -171,7 +171,7 @@ export default {
         appCharLen: 1,
         appHint: [
           '「1」(普通預金)',
-          '「2」(当座預金) ',
+          '「2」(当座預金)',
           '「9」(その他)',
         ].join('\n'),
         appRequired: false,
