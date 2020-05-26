@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/fbdata-analyzer/precache-manifest.46b3732874da54d44bf297c1074719e3.js"
+  "/fbdata-analyzer/precache-manifest.60cb89df6318e5732f509957b4bf945e.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "fbdata-analyzer"});
