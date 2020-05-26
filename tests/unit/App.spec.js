@@ -218,6 +218,111 @@ describe('App.vue', () => {
     });
   });
 
+  it('normal test. trailer record input', async () => {
+    const wrapper = mount(App, {
+      localVue,
+      vuetify,
+    });
+
+    const trailerRecordData = [
+      '8000003000000000300                                                                                                     ',
+    ];
+
+
+    const data = [
+      trailerRecordData.join('\n'),
+    ].join('\n');
+
+    await _inputTextarea(wrapper, data);
+
+    const tabsElements = wrapper.findAll('.v-slide-group__wrapper > div > div');
+    await tabsElements.at(3).trigger('click');
+    await wrapper.vm.$nextTick();
+    expect(tabsElements.at(3).classes()).toContain('v-tab--active');
+
+    // With jest we can create snapshot files of the HTML output
+    expect(wrapper.html()).toMatchSnapshot();
+
+    const tableElement = wrapper.findAll('.v-data-table__wrapper').at(1);
+    const headerElements = tableElement.findAll('table > thead > tr > th');
+    [
+      '行',
+      'データ区分',
+      '合計件数',
+      '合計金額',
+      'ダミー',
+    ].forEach((expected, index) => {
+      expect(headerElements.at(index).findAll('span').at(1).text()).toBe(expected);    
+    });
+
+    const bodyElements = tableElement.findAll('table > tbody > tr');
+
+    [
+      [
+        '1',
+        '8',
+        '000003',
+        '000000000300',
+        '',
+      ],
+    ].forEach((record, recordIndex) => {
+      const columns = bodyElements.at(recordIndex).findAll('td');
+      record.forEach((expected, columnIndex) => {
+        expect(columns.at(columnIndex).text()).toBe(expected);
+      })
+    });
+  });
+
+  it('normal test. end record input', async () => {
+    const wrapper = mount(App, {
+      localVue,
+      vuetify,
+    });
+
+    const endRecordData = [
+      '9                                                                                                                       ',
+    ];
+
+    const data = [
+      endRecordData.join('\n'),
+    ].join('\n');
+
+    await _inputTextarea(wrapper, data);
+
+    const tabsElements = wrapper.findAll('.v-slide-group__wrapper > div > div');
+    await tabsElements.at(4).trigger('click');
+    await wrapper.vm.$nextTick();
+    expect(tabsElements.at(4).classes()).toContain('v-tab--active');
+
+    // With jest we can create snapshot files of the HTML output
+    expect(wrapper.html()).toMatchSnapshot();
+
+    const tableElement = wrapper.findAll('.v-data-table__wrapper').at(1);
+    const headerElements = tableElement.findAll('table > thead > tr > th');
+    [
+      '行',
+      'データ区分',
+      'ダミー',
+    ].forEach((expected, index) => {
+      expect(headerElements.at(index).findAll('span').at(1).text()).toBe(expected);    
+    });
+
+    const bodyElements = tableElement.findAll('table > tbody > tr');
+
+    [
+      [
+        '1',
+        '9',
+        '',
+      ],
+    ].forEach((record, recordIndex) => {
+      const columns = bodyElements.at(recordIndex).findAll('td');
+      record.forEach((expected, columnIndex) => {
+        expect(columns.at(columnIndex).text()).toBe(expected);
+      })
+    });
+  });
+
   it('abnormal test. invalid input', async () => {
     const wrapper = mount(App, {
       localVue,
