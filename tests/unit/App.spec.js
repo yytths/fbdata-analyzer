@@ -63,7 +63,6 @@ describe('App.vue', () => {
 
     const tableElement = wrapper.find('.v-data-table__wrapper');
     const headerElements = tableElement.findAll('table > thead > tr > th');
-    const bodyElements = tableElement.findAll('table > tbody > tr > td');
     [
       '行',
       'データ区分',
@@ -83,6 +82,7 @@ describe('App.vue', () => {
       expect(headerElements.at(index).find('span').text()).toBe(expected);    
     });
 
+    const bodyElements = tableElement.findAll('table > tbody > tr > td');
     [
       '1',
       '1',
@@ -114,7 +114,6 @@ describe('App.vue', () => {
       '22606ﾃｽﾄﾃﾞｰﾀ1112    123ｻﾝﾌﾟﾙ              11234567ｳｹﾄﾘﾆﾝﾒｲ                      00000001000ﾏｲﾂｷﾌﾞﾝ             0Y       ',
       '22606ﾃｽﾄﾃﾞｰﾀ1113    123ｻﾝﾌﾟﾙ              11234567ｳｹﾄﾘﾆﾝﾒｲ                      00000001000221201001 000001    0        ',
     ];
-
 
     const data = [
       dataRecordData.join('\n'),
@@ -154,7 +153,6 @@ describe('App.vue', () => {
     });
 
     const bodyElements = tableElement.findAll('table > tbody > tr');
-
     [
       [
         '1',
@@ -227,7 +225,6 @@ describe('App.vue', () => {
     const trailerRecordData = [
       '8000003000000000300                                                                                                     ',
     ];
-
 
     const data = [
       trailerRecordData.join('\n'),
