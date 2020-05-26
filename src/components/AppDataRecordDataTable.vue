@@ -119,7 +119,7 @@ export default {
         appRequired: false,
       },
       {
-        text: '手形交換所番号 ',
+        text: '手形交換所番号',
         value: 'clearingHouseNumber',
         sortable: false,
         appCharCode: 'N',
@@ -135,7 +135,7 @@ export default {
         appCharLen: 1,
         appHint: [
           '「1」(普通預金)',
-          '「2」(当座預金) ',
+          '「2」(当座預金)',
           '「4」(貯蓄預金)',
           '「9」(その他)',
         ].join('\n'),
@@ -172,7 +172,7 @@ export default {
         appCharCode: 'N',
         appCharLen: 1,
         appHint: [
-          '「0」(その他) ',
+          '「0」(その他)',
           '「1」(第1回振込分)',
           '「2」(変更分（被仕向銀行・支店、預金種目・口座番号))',
         ].join('\n'),
@@ -194,7 +194,7 @@ export default {
         appCharLen: 1,
         appHint: [
           '「7」(テレ振込)',
-          '「8」(文書振込) ',
+          '「8」(文書振込)',
         ].join('\n'),
         appRequired: false,
       },
