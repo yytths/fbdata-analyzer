@@ -103,6 +103,121 @@ describe('App.vue', () => {
     });
   });
 
+  it('normal test. data record input', async () => {
+    const wrapper = mount(App, {
+      localVue,
+      vuetify,
+    });
+
+    const dataRecordData = [
+      '22606ﾃｽﾄﾃﾞｰﾀ1111    123ｻﾝﾌﾟﾙ              11234567ｳｹﾄﾘﾆﾝﾒｲ                      00000001000                    0        ',
+      '22606ﾃｽﾄﾃﾞｰﾀ1112    123ｻﾝﾌﾟﾙ              11234567ｳｹﾄﾘﾆﾝﾒｲ                      00000001000ﾏｲﾂｷﾌﾞﾝ             0Y       ',
+      '22606ﾃｽﾄﾃﾞｰﾀ1113    123ｻﾝﾌﾟﾙ              11234567ｳｹﾄﾘﾆﾝﾒｲ                      00000001000221201001 000001    0        ',
+    ];
+
+
+    const data = [
+      dataRecordData.join('\n'),
+    ].join('\n');
+
+    await _inputTextarea(wrapper, data);
+
+    const tabsElements = wrapper.findAll('.v-slide-group__wrapper > div > div');
+    await tabsElements.at(2).trigger('click');
+    await wrapper.vm.$nextTick();
+    expect(tabsElements.at(2).classes()).toContain('v-tab--active');
+
+    // With jest we can create snapshot files of the HTML output
+    expect(wrapper.html()).toMatchSnapshot();
+
+    const tableElement = wrapper.findAll('.v-data-table__wrapper').at(1);
+    const headerElements = tableElement.findAll('table > thead > tr > th');
+    [
+      '行',
+      'データ区分',
+      '被仕向銀行番号',
+      '被仕向銀行名',
+      '被仕向支店番号',
+      '被仕向支店名',
+      '手形交換所番号',
+      '預金種目',
+      '口座番号',
+      '受取人名',
+      '振込金額',
+      '新規コード',
+      'EDI情報',
+      '振込指定区分',
+      '識別表示',
+      'ダミー',
+    ].forEach((expected, index) => {
+      expect(headerElements.at(index).findAll('span').at(1).text()).toBe(expected);    
+    });
+
+    const bodyElements = tableElement.findAll('table > tbody > tr');
+
+    [
+      [
+        '1',
+        '2',
+        '2606',
+        'ﾃｽﾄﾃﾞｰﾀ1111',
+        '123',
+        'ｻﾝﾌﾟﾙ',
+        '',
+        '1',
+        '1234567',
+        'ｳｹﾄﾘﾆﾝﾒｲ',
+        '0000000100',
+        '0',
+        '',
+        '0',
+        '',
+        '',
+      ],
+      [
+        '2',
+        '2',
+        '2606',
+        'ﾃｽﾄﾃﾞｰﾀ1112',
+        '123',
+        'ｻﾝﾌﾟﾙ',
+        '',
+        '1',
+        '1234567',
+        'ｳｹﾄﾘﾆﾝﾒｲ',
+        '0000000100',
+        '0',
+        'ﾏｲﾂｷﾌﾞﾝ',
+        '0',
+        'Y',
+        '',
+      ],
+      [
+        '3',
+        '2',
+        '2606',
+        'ﾃｽﾄﾃﾞｰﾀ1113',
+        '123',
+        'ｻﾝﾌﾟﾙ',
+        '',
+        '1',
+        '1234567',
+        'ｳｹﾄﾘﾆﾝﾒｲ',
+        '0000000100',
+        '0',
+        '221201001 000001',
+        '0',
+        '',
+        '',
+      ],
+    ].forEach((record, recordIndex) => {
+      const columns = bodyElements.at(recordIndex).findAll('td');
+      record.forEach((expected, columnIndex) => {
+        expect(columns.at(columnIndex).text()).toBe(expected);
+      })
+    });
+  });
+
   it('abnormal test. invalid input', async () => {
     const wrapper = mount(App, {
       localVue,
